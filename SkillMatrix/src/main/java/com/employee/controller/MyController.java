@@ -57,17 +57,15 @@ public class MyController {
     @Autowired
     private DesignationRepository designationRepo;
     
+   
+    
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupDto signUpDto){
 
         // add check for username exists in a DB
-        if(userRepository.existsByName(signUpDto.getName())){
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
-        }
-
         // add check for email exists in DB
         if(userRepository.existsByCode(signUpDto.getCode())){
-            return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username is already taken with this employee code!", HttpStatus.BAD_REQUEST);
         }
 
         // create user object
@@ -76,11 +74,15 @@ public class MyController {
         user.setCode(signUpDto.getCode());
         user.setEmail(signUpDto.getEmail());
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
-        user.setDesignation(signUpDto.getDesignation());
+        
+        Designation designation = designationRepo.findByDesigantion(signUpDto.getDesignation());
+		user.setDesignation(new Designation(designation.getId()));
+		
         user.setExprience(signUpDto.getExprience());
-        user.setProject(signUpDto.getProject());
-
-
+        
+        Project project = projectRepo.findByProject(signUpDto.getProject());
+		user.setProject(new Project(project.getId()));
+       
         userRepository.save(user);
         
         return new ResponseEntity<>("User with Id: "+user.getCode()+" and  name: "+user.getName()+" signed-in successfully!.",  HttpStatus.OK);

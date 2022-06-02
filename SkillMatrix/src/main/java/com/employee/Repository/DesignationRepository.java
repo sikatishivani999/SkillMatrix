@@ -7,5 +7,8 @@ import com.employee.model.Designation;
 
 @Repository
 public interface DesignationRepository extends JpaRepository<Designation, Integer> {
+	
+	Designation findByDesigantion(String designation);
+	
 
 }

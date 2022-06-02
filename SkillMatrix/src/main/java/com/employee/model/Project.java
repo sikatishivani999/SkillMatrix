@@ -22,5 +22,9 @@ public class Project {
 	private int id;
 	
 	private String project;
+	
+	public Project(int id) {
+		this.id = id;
+	}
 
 }

@@ -5,15 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "user")
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class User {
 	
 
@@ -33,34 +35,19 @@ public class User {
 	
 	private String password;
 	
-	private String designation;
+//	private String designation;
+	@OneToOne
+	@JoinColumn(name = "designation_id")
+	private Designation designation;
 	
 	private String exprience;
+
+//	private String project;
 	
-	public User(int id, String name, String code, String email, String password, String designation, String exprience,
-			String project) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.code = code;
-		this.email = email;
-		this.password = password;
-		this.designation = designation;
-		this.exprience = exprience;
-		this.project = project;
-	}
+	@OneToOne
+	@JoinColumn(name = "project_id")
+	private Project project;
 
-	private String project;
-
-	public User(int i) {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	
 
 }

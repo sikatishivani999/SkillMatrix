@@ -23,5 +23,9 @@ public class Designation {
 	private int id;
 	
 	private String desigantion;
+	
 
+	public Designation(int id) {
+		this.id = id;
+	}
 }
