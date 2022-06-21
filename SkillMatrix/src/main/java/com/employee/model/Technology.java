@@ -15,14 +15,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Technology {
-	
+public class Technology {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id;	
 	
+
 	private String technologyCode;
 	
+	public Technology(String technologyCode) {
+		this.technologyCode = technologyCode;
+	}
+	
 	private String technologyName;
-
 }
